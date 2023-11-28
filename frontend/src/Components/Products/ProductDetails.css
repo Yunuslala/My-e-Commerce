@@ -1,0 +1,296 @@
+.ProdcutDetails {
+    display: flex;
+    width: 100vw;
+    max-width: 100%;
+    padding: 6vw;
+    box-sizing: border-box;
+    background-color: white;
+}
+.submitDialog {
+    display: flex;
+    flex-direction: column;
+  }
+  .submitDialogTextArea {
+    border: 1px solid rgba(0, 0, 0, 0.082);
+    margin: 1vmax 0;
+    outline: none;
+    padding: 1rem;
+    font: 300 1rem "Roboto";
+  }
+
+.ProdcutDetails>div {
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-evenly;
+
+    padding: 6vmax;
+
+}
+
+.CarouselImage {
+    width: 20vmax;
+}
+
+.ProdcutDetails>div:last-child {
+    align-items: flex-start;
+}
+
+.productDetails-Block-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.productDetails-Block-1>h2 {
+    color: rgb(54, 54, 54);
+    font: 600 1.6vmax "Roboto";
+}
+
+.productDetails-Block-1>p {
+    color: rgba(54, 54, 54, 0.582);
+    margin: 1vmax auto;
+    font: 300 0.6vmax cursive;
+}
+
+.productDetails-Block-2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-top: 1px solid rgba(0, 0, 0, 0.205);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+    width: 80%;
+    padding: 1vmax 0;
+}
+
+.detailsBlock-2-span {
+    font: 200 0.8vmax cursive;
+    color: rgba(0, 0, 0, 0.699);
+}
+
+.productDetails-Block-3 {
+    width: 80%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.productDetails-Block-3>h1 {
+    color: rgba(17, 17, 17, 0.795);
+    font: 400 1.8vmax "Franklin Gothic Medium";
+    margin: 1vmax 0;
+}
+
+.productDetails-Block-3-1 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+}
+
+.productDetails-Block-3-1-1>button {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.616);
+    padding: 0.5vmax;
+    cursor: pointer;
+    color: white;
+    transition: all 0.5s;
+}
+
+.productDetails-Block-3-1-1>button :hover {
+    background-color: rgba(0, 0, 0, 0.767);
+}
+
+.productDetails-Block-3-1-1>input {
+    border: none;
+    padding: 0.5vmax;
+    width: 1vmax;
+    text-align: center;
+    outline: none;
+    font: 400 0.8vmax "Roboto";
+    color: rgba(0, 0, 0, 0.74);
+}
+
+.productDetails-Block-3-1>button:last-child {
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: all 0.5s;
+    background-color: tomato;
+    font: 500 0.7vmax "Roboto";
+    border-radius: 20px;
+    padding: 0.5vmax 2vmax;
+    margin: 1vmax;
+    outline: none;
+
+}
+
+.redColor{
+    color: red;
+}
+
+.greenColor{
+    color: green;
+}
+
+.productDetails-Block-3-1>button:last-child:hover {
+    background-color: rgb(214, 84, 61);
+}
+
+.productDetails-Block-3>p {
+    border-top: 1px solid rgba(0, 0, 0, 0.205);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+    padding: 1vmax 0;
+    display: flex;
+    align-items: flex-start;
+    color: rgba(0, 0, 0, 0.651);
+    font: 400 1vmax "Roboto";
+    margin: 1vmax 0;
+    width: 100%;
+}
+
+.productDetails-Block-4 {
+    color: rgba(0, 0, 0, 0.897);
+    font: 500 1.2vmax sans-serif;
+ 
+}
+
+.productDetails-Block-4>p {
+    color: rgba(0, 0, 0, 0.534);
+    font: 300 0.8vmax sans-serif;
+}
+
+.submitReview{
+    border: none;
+    color: white;
+    transition: all 0.5s;
+    background-color: tomato;
+    font: 500 0.7vmax "Roboto";
+    border-radius: 20px;
+    padding: 0.6vmax 1vmax;
+    cursor: pointer;
+    margin: 1vmax 0;
+    outline: none;
+    transition: 1.5s ease;
+}
+.submitReview:hover{
+    background-color: rgb(197, 68, 45);
+  transform: scale(1.1);
+}
+
+.reviewsHeading {
+    color: #000000be;
+    font: 500 1.4vmax "Roboto";
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.226);
+    padding: 1vmax;
+    width: 20vmax;
+    margin: auto;
+    margin-bottom: 4vmax;
+  }
+.noReviews {
+    font: 400 1.3vmax "Gill Sans";
+    text-align: center;
+    color: rgba(0, 0, 0, 0.548);
+  }
+
+.reviews{
+    display: flex;
+    overflow: auto;
+}
+
+.reviewCard{
+    flex: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.226);
+    border: 1px solid rgba(56, 56, 56, 0.116);
+    width: 30vmax;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin:1vmax;
+    padding: 3vmax;
+}
+.reviewCard > img{
+    width: 60px; /* Make the image fill the container */
+  height: 60px;
+  object-position: top;
+  object-fit: cover; /* Maintain the aspect ratio of the image */
+  border-radius: 50%
+}
+ .RatingStar {
+   display: flex;
+   margin: auto;
+   align-items: center;
+    text-align: center;
+    justify-content: center;
+
+}
+
+@media screen and (max-width: 600px) {
+    .ProdcutDetails {
+        flex-direction: column;
+        height: unset;
+    }
+    .productDetails-Block-3-1-1>input{
+        width: 3vmax;
+        font-size: 2.2vmax;
+    }
+    .ProdcutDetails>div{
+        width: auto;
+    }
+    .ProdcutDetails>div:last-child{
+        align-items: center;
+    }
+    .productDetails-Block-1 {
+        align-items: center;
+    }
+    .productDetails-Block-1 > h2{
+        font-size: 2.8vmax;
+        text-align: center;
+    }
+    .productDetails-Block-1 > p{
+        font-size: 1.5vmax;
+    
+    }
+    .productDetails-Block-2{
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        
+    }
+    .productCardSpan{
+        font-size: 2vmax;
+        margin-bottom: 0;
+    }
+    .productDetails-Block-3{
+        align-items: center;
+    }
+    .productDetails-Block-3>h1{
+        font-size: 2.8vmax;
+    }
+    .productDetails-Block-3-1{
+        flex-direction: column;
+    }
+    .productDetails-Block-3-1>button:last-child {
+        padding: 0.8vmax 2vmax;
+        font-size: 1.7vmax;
+    }
+    .productDetails-Block-3 > p{
+        align-items: center;
+        font-size: 1.8vmax;
+        justify-content: center;
+    }
+    .productDetails-Block-4 {
+        font-size: 2.1vmax;
+
+    }
+    .productDetails-Block-4>p {
+        font-size: 1.8vmax;
+    }
+    .submitReview{
+        padding: 1vmax 2vmax; 
+        font-size: 2vmax;
+    }
+}

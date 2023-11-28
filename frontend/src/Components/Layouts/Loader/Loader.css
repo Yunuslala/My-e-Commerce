@@ -1,0 +1,22 @@
+.LoaderDiv{
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display:grid;
+    place-items: center;
+}
+
+.LoaderDiv>div{
+    width: 10vmax;
+    height: 10vmax;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.719);
+    border-radius: 50%;
+    animation:Loadinganimation 800ms linear infinite
+}
+
+@keyframes Loadinganimation{
+    to{
+        transform:rotateZ(360deg)
+    }
+    
+}
