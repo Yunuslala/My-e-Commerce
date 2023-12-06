@@ -5,8 +5,6 @@ E-Commerce
 <h2>E-Commerce<h2>
 <h5>E-commerce project is a streamlined platform featuring a user-friendly home page with a responsive navbar for easy navigation. It offers a seamless product browsing experience, allowing users to view, order, and make payments effortlessly. The inclusion of a review system enhances customer engagement and feedback. Additionally, an efficient admin panel ensures optimal management and optimization of the entire platform for a smooth and effective e-commerce operation.
  </h5>
-
-  ![Tooth Tracker](https://user-images.githubusercontent.com/112674221/229418884-02368d0e-c361-4314-be19-0be2243a6d5b.png)
   <br>
   Frontend Link: https://my-e-commerce-frontend-o1fsmoezk-yunuslala.vercel.app/ <br> <br>
   Backend Link: https://e-coomercebackend.onrender.com/ <br> <br>
