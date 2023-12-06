@@ -20,7 +20,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { CreateOrder } from "../Redux/Reducers/ProductSlices/OrderSlice";
 const Payment = () => {
   const { LoginUser, loginSucess } = useSelector((state) => state.AuthSlice);
-  const url = "http://localhost:4500";
+  const url = "https://e-coomercebackend.onrender.com"
   const { cartData } = useSelector((state) => state.CartSlice);
   const token = localStorage.getItem("meToken");
   const navigate = useNavigate();

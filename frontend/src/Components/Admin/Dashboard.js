@@ -14,7 +14,7 @@ import { getAllOrders } from '../Redux/Reducers/ProductSlices/OrderSlice';
 Chartjs.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 const Dashboard = () => {
-  let totalAmount=2500;
+  let totalAmount=0;
 
   const token=localStorage.getItem("meToken");
   const Dispatch=useDispatch();

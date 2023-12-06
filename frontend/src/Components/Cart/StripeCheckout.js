@@ -7,7 +7,7 @@ import Payment from './Payment';
 
 const StripeCheckout = () => {
 
-    const url = "http://localhost:4500";
+    const url = "https://e-coomercebackend.onrender.com"
     const token = localStorage.getItem("meToken");
   const [clientSecret, setClientSecret] = useState("");
   const [clientPublish,setClientPublish]=useState("");

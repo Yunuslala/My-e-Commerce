@@ -1,7 +1,7 @@
 // userSlice.js
 import { createSlice,createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-const url="http://localhost:4500";
+const url="https://e-coomercebackend.onrender.com"
 
 
 

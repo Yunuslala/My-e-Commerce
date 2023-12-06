@@ -31,7 +31,6 @@ const Categories = () => {
         name:name
     }
     Dispatch(CreateCategory({token,payload}))
-    navigate('/admin/Categories');
     window.location.reload()
   };
 
@@ -40,7 +39,6 @@ const Categories = () => {
   }, []);
   const deleteOrderHandler = async (id) => {
     Dispatch(DeleteCategory({token,id}))
-    navigate('/admin/Categories');
     window.location.reload()
   };
   const columns = [
