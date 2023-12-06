@@ -78,14 +78,14 @@ export const DeleteUserOrder = createAsyncThunk(
 
 export const UpdateOrderStatus = createAsyncThunk(
   "/Update/Order/:id",
-  async ({ id, token }) => {
+  async ({ id, token,payload }) => {
     try {
        const headers = {
             'Content-Type': 'application/json',
           'Authorization': `${token}`,
           };
           
-      const { data } = await axios.patch(`${url}/api/v1/order/${id}`, {
+      const { data } = await axios.patch(`${url}/api/v1/order/${id}`,payload, {
         headers,
       });
       return data;
@@ -121,6 +121,7 @@ const initialState = {
   UserOrders: [],
   IndividualOrder: {},
   sucess: false,
+  deleteOrder:false,
   msg: "",
 };
 
@@ -132,6 +133,15 @@ const OrderSlice = createSlice({
       console.log("clearerror", state);
       state.error = null;
     },
+  RemoveDeleteOrder:(state)=>{
+    state.deleteOrder=false;
+  },
+  ClearMessage:(state)=>{
+    state.msg=""
+  },
+  clearSucess:(state)=>{
+    state.sucess=false;
+  }
   },
   extraReducers: (builder) => {
     builder
@@ -177,7 +187,7 @@ const OrderSlice = createSlice({
       })
       .addCase(DeleteUserOrder.fulfilled, (state, action) => {
         state.loading = false;
-        state.sucess = true;
+        state.deleteOrder = true;
         state.msg = action.payload.msg;
       })
       .addCase(DeleteUserOrder.rejected, (state, action) => {
@@ -219,9 +229,28 @@ const OrderSlice = createSlice({
         state.error = action.error.message;
         state.msg = "";
       });
+      builder
+      .addCase(UpdateOrderStatus.pending, (state, action) => {
+        state.loading = true;
+        state.sucess = false;
+        state.msg = "";
+      })
+      .addCase(UpdateOrderStatus.fulfilled, (state, action) => {
+        state.loading = false;
+        state.sucess = true;
+        state.msg = action.payload.msg;
+      })
+      .addCase(UpdateOrderStatus.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        state.msg = "";
+      });
   },
 });
 
 export default OrderSlice.reducer;
 
 export const { clearError } = OrderSlice.actions;
+export const {RemoveDeleteOrder}=OrderSlice.actions;
+export const {ClearMessage}=OrderSlice.actions;
+export const  {clearSucess}=OrderSlice.actions;

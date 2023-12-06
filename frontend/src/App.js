@@ -24,6 +24,18 @@ import ConfirmOrder from "./Components/Cart/ConfirmOrder";
 import StripeCheckout from "./Components/Cart/StripeCheckout";
 import OrderSucess from "./Components/Cart/OrderSucess";
 import OrderDetails from "./Components/Orders/OrderDetails";
+import AdminProtected from "./Components/Route/AdminProtected";
+import Dashboard from "./Components/Admin/Dashboard";
+import NotFound from "./Components/Home/NotFound";
+import OrderList from "./Components/Admin/OrderList";
+import ProcessOrder from "./Components/Admin/ProcessOrder";
+import UserList from "./Components/Admin/UserList";
+import UserUpdateRole from "./Components/Admin/UserUpdateRole";
+import ProductList from "./Components/Admin/ProductList";
+import UpdateProduct from "./Components/Admin/UpdateProduct";
+import CreateProduct from "./Components/Admin/CreateProduct";
+import Categories from "./Components/Admin/Categories";
+import ProductReview from "./Components/Admin/ProductReview";
 
 function App() {
   const Dispatch = useDispatch();
@@ -70,7 +82,19 @@ function App() {
             <Route path="/orders/me/:id" element={<OrderDetails/>} />
 
           </Route>
-         
+          <Route element={<AdminProtected />}>
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/orders" element={<OrderList />} />
+          <Route path="/admin/order/:id" element={<ProcessOrder />} />
+          <Route path="/admin/Users" element={<UserList />} />
+          <Route path="/admin/Users/:id" element={<UserUpdateRole />} />
+          <Route path="/admin/Products" element={<ProductList />} />
+          <Route path="/admin/Add/Products" element={<CreateProduct />} />
+          <Route path="/admin/Categories" element={<Categories />} />
+          <Route path="/admin/Update/Products/:id" element={<UpdateProduct />} />
+          <Route path="/admin/Product/review" element={<ProductReview />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       
         <Footer />

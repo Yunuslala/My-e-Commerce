@@ -4,9 +4,7 @@ const url="http://localhost:4500";
 
 
 export const getAllProducts=createAsyncThunk("/get/AllProduct",async({search,page,minPrice,maxPrice,ratings,filter},thunkApi)=>{
-
   try {
-
     const query=`?search=${search}&page=${page}&minPrice=${minPrice}&maxPrice=${maxPrice}&ratings=${ratings}&filter=${filter}`
     const {data}=await axios.get(`${url}/api/v1/product/getAll${query}`);
     return data
@@ -16,7 +14,7 @@ export const getAllProducts=createAsyncThunk("/get/AllProduct",async({search,pag
  
 })
 
-export const getProuctDetails=createAsyncThunk("admin/product/:id",async(id)=>{
+export const getProuctDetails=createAsyncThunk("admin/product/:id",async({id})=>{
   try {
     const {data}=await axios.get(`${url}/api/v1/admin/product/${id}`);
     return data
@@ -80,13 +78,13 @@ export const DeleteParticularProductImage=createAsyncThunk("/admin/delete/produc
   }
  
 })
-export const UpdateParticularProduct=createAsyncThunk("/admin/update/product/:id",async({id,token})=>{
+export const UpdateParticularProduct=createAsyncThunk("/admin/update/product/:id",async({id,token,payload})=>{
   try {
     const headers={
       'Content-Type':'Application/json',
       'Authorization':token
     }
-    const {data}=await axios.get(`${url}/api/v1/admin/product/${id}`,{headers});
+    const {data}=await axios.patch(`${url}/api/v1/admin/product/${id}`,payload,{headers});
     return data
   } catch (error) {
     throw error.response.data.msg
@@ -119,7 +117,19 @@ export const DeleteReviews=createAsyncThunk("/admin/delete/reviews/:id",async({i
   }
  
 })
-
+export const AdminProducts=createAsyncThunk("/admin/All/Products",async({token})=>{
+  try {
+    const headers={
+      'Content-Type':'Application/json',
+      'Authorization':token
+    }
+    const {data}=await axios.get(`${url}/api/v1/admin/all/product`,{headers});
+    return data
+  } catch (error) {
+    throw error.response.data.msg
+  }
+ 
+})
 
 
 const initialState={
@@ -132,8 +142,11 @@ const initialState={
   productDetails:{},
   ReviewSuccess:false,
   ProductDeleted:false,
-  msg:""
-
+  msg:"",
+  AllProducts:[],
+  CreateProductSucess:false,
+  updateSucess:false,
+  DeleteReviewsSucess:false
 }
 
 const ProductReducer=createSlice({
@@ -212,7 +225,7 @@ const ProductReducer=createSlice({
     })
     .addCase(UpdateParticularProduct.fulfilled,(state,action)=>{
       state.loading=false;
-      state.productDetails=action.payload.data;
+      state.updateSucess=true;
     })
     .addCase(UpdateParticularProduct.rejected,(state,action)=>{
       state.loading=false;
@@ -224,7 +237,7 @@ const ProductReducer=createSlice({
     })
     .addCase(DeleteReviews.fulfilled,(state,action)=>{
       state.loading=false;
-      state.productDetails=action.payload.data;
+      state.DeleteReviewsSucess=true;
     })
     .addCase(DeleteReviews.rejected,(state,action)=>{
       state.loading=false;
@@ -239,6 +252,31 @@ const ProductReducer=createSlice({
       state.productDetails=action.payload.data;
     })
     .addCase(GetUserReviews.rejected,(state,action)=>{
+      state.loading=false;
+      state.error=action.error.message;
+    });
+    builder.addCase(AdminProducts.pending,(state,action)=>{
+      state.loading=true;
+      state.error=null;
+    })
+    .addCase(AdminProducts.fulfilled,(state,action)=>{
+      state.loading=false;
+      state.AllProducts=action.payload.data;
+    })
+    .addCase(AdminProducts.rejected,(state,action)=>{
+      state.loading=false;
+      state.error=action.error.message;
+    });
+    builder.addCase(AddProducts.pending,(state,action)=>{
+      state.loading=true;
+      state.error=null;
+      state.CreateProductSucess=false;
+    })
+    .addCase(AddProducts.fulfilled,(state,action)=>{
+      state.loading=false;
+      state.CreateProductSucess=true;
+    })
+    .addCase(AddProducts.rejected,(state,action)=>{
       state.loading=false;
       state.error=action.error.message;
     });

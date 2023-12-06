@@ -13,7 +13,7 @@ const ReviewCard = ({review}) => {
       };
   return (
     <div className='reviewCard'>
-    <img src={review.userId.avatar ? review?.userId?.avatar : profilePng } alt={review.userId.name} />
+    <img src={review?.userId?.avatar? review?.userId?.avatar : profilePng } alt={review.userId.name} />
     <p>{review?.userId?.name}</p>
     <div className="RatingStar">
     <ReactStars {...option}  />

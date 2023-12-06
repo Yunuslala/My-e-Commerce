@@ -16,6 +16,7 @@ const UpdateProfile = () => {
   const [registerEmail, setregisterEmail] = useState(LoginUser?.email);
   const [name, setregistername] = useState(LoginUser?.name);
   const [image, setImage] = useState(null);
+ 
   const Dispatch = useDispatch();
   const Navigate=useNavigate();
   const [flag,setFlag]=useState(false)
@@ -57,6 +58,7 @@ const UpdateProfile = () => {
     registerData.append("name", name);
     registerData.append("email", registerEmail);
     registerData.append("profile", image);
+    
     console.log("imageval",image)
 
     Dispatch(UpadteMe({payload:registerData,token:Usertoken}));

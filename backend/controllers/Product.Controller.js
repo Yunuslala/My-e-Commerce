@@ -103,14 +103,14 @@ exports.updateParticularProduct = AsyncerrorHandler(async (req, res, next) => {
 
   const updateData = {
     name: name || findData.name,
-    price: price || findData.price,
+    price: Number(price) || findData.price,
     description: description || findData.description,
     categoryId: categoryId || findData.categoryId,
     Stock: Number(Stock) || findData.Stock,
     images: updatedImages,
   };
+  console.log("updatedData",req.body,updateData);
 
-  console.log(updateData);
 
   const UpdateProducts = await ProductModel.findByIdAndUpdate(
     { _id: req.params.id },
@@ -124,6 +124,25 @@ exports.updateParticularProduct = AsyncerrorHandler(async (req, res, next) => {
   });
 });
 
+exports.GetAdminAllProduct = AsyncerrorHandler(async (req, res, next) => {
+  let { role } = req.body;
+  if (role != "admin") {
+    return next(
+      new ErrorHandler(401, "you are not authorize for these routes")
+    );
+  }
+  
+
+  const findData = await ProductModel.find().populate("categoryId", "name");;
+  if (findData.length==0) {
+    return next(new ErrorHandler(404, "Product does not exist to update"));
+  }
+  return res.status(200).send({
+    sucess: true,
+    msg: "product has been updated",
+    data: findData,
+  });
+});
 exports.GetParticularProduct = AsyncerrorHandler(async (req, res, next) => {
 
   const findData = await ProductModel.findOne({ _id: req.params.id }).populate(
@@ -286,10 +305,9 @@ exports.deleteReviews = AsyncerrorHandler(async (req, res, next) => {
   const FindProductReview = await ProductModel.findOne(
     {
       _id: productId,
-      "reviews.userId": id,
-    },
-    {
-      reviews: { $elemMatch: { userId: id } },
+      "reviews": {
+        $elemMatch: { _id:id }
+      },
     }
   );
   if (!FindProductReview) {
@@ -303,37 +321,41 @@ exports.deleteReviews = AsyncerrorHandler(async (req, res, next) => {
   FindReview.reviews.forEach((item) => {
     CalculateRatings += Number(item.rating);
   });
+  const FindUserExistRating=FindReview.reviews.filter((item)=>item._id==id);
+
   let AverageRating =
-    (CalculateRatings - FindProductReview.reviews[0].rating) /
+    (CalculateRatings - FindUserExistRating?.[0].rating) /
     (FindReview.reviews.length - 1);
   if (FindReview.reviews.length - 1 == 0) {
     AverageRating = 0;
   }
-
+console.log(CalculateRatings,AverageRating);
   const updateReviews = await ProductModel.findOneAndUpdate(
     {
       _id: productId,
+      "reviews._id": id,
     },
     {
       $set: { ratings: AverageRating },
       $inc: { numOfReviews: -1 },
+      $pull: { reviews: { _id: id } },
     },
     { new: true }
   );
-  const updateData = await ProductModel.findOneAndUpdate(
-    {
-      _id: productId,
-      "reviews.userId": id,
-    },
-    {
-      $pull: { reviews: { userId: id } },
-    },
-    { new: true }
-  );
+  // const updateData = await ProductModel.findOneAndUpdate(
+  //   {
+  //     _id: productId,
+  //     "reviews.userId": id,
+  //   },
+  //   {
+  //     $pull: { reviews: { userId: id } },
+  //   },
+  //   { new: true }
+  // );
   return res.status(200).send({
     sucess: true,
     msg: "user review has been deleted",
-    data: updateData,
+    data:  updateReviews,
   });
 });
 
@@ -372,4 +394,20 @@ exports.GetParticularUserReviews = AsyncerrorHandler(async (req, res, next) => {
   });
 });
 
-exports.ProdcutAllReviews = AsyncerrorHandler(async (req, res, next) => {});
+exports.ProdcutAllReviews = AsyncerrorHandler(async (req, res, next) => {
+  const findData = await ProductModel.findOne({ _id: req.params.id }).populate(
+    "categoryId",
+    "name"
+  ).populate(
+    "reviews.userId",
+    "name avatar"
+  );
+  if (!findData) {
+    return next(new ErrorHandler(404, "Product reviews does not exist to update"));
+  }
+  return res.status(200).send({
+    sucess: true,
+    msg: "product all reviews",
+    data: findData,
+  });
+});

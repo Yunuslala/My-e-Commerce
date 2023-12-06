@@ -1,0 +1,42 @@
+.UserUpdateContainer{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid rgba(0, 0, 0, 0.158);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.UserUpdateForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 3vmax;
+    justify-content: space-evenly;
+    height: 70%;
+    width: 40vh;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.267);
+}
+.UserUpdateForm >div{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.UserUpdateForm > div > input,.UserUpdateForm > div > select {
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+    outline: none;
+}
+.UserUpdateForm > div >svg{
+    position: absolute;
+    transform: translateX(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(0, 0, 0, 0.623);
+}

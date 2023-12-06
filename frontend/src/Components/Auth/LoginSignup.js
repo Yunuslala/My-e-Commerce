@@ -26,8 +26,9 @@ const LoginSignup = () => {
   const [image, setImage] = useState(null);
   const Dispatch = useDispatch();
   const Navigate=useNavigate();
-  const Usertoken=localStorage.getItem("meToken")
-  useEffect(() => {
+  // const Usertoken=localStorage.getItem("meToken")
+  useEffect(() =>
+   {
     if (error) {
       console.log("loginerror",error)
         const ErrorToast = () => {
@@ -45,10 +46,9 @@ const LoginSignup = () => {
         Navigate("/account")
     }
     if(token){
-        console.log("loginToken",token);
         localStorage.setItem("meToken",token)
     }
-  }, [error,loginSucess]);
+  }, [error,Dispatch,Navigate,token,loginSucess]);
   
   const LoginSubmit = async (e) => {
     e.preventDefault();
@@ -82,11 +82,6 @@ const LoginSignup = () => {
     registerData.append("password", registerPassword);
     registerData.append("profile", image);
     Dispatch(SignupAction(registerData));
-    // const { error, loading, registerSuccess } = useSelector(
-    //   (state) => state.authSlice
-    // );
-
-    // console.log("registerState", { error, loading, registerSuccess });
   };
   return (
     <Fragment>

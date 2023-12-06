@@ -45,7 +45,7 @@ const UserOption = ({LoginUser}) => {
         Navigate('/Cart')
     }
     const dashboard=()=>{
-
+      Navigate('/admin/dashboard')
     }
     console.log("UserDetail",LoginUser);
   

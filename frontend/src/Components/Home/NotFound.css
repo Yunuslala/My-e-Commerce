@@ -1,0 +1,44 @@
+.NotFound {
+    margin: auto;
+    text-align: center;
+    padding: 10vmax;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .NotFound > svg {
+    font-size: 7vmax;
+    color: tomato;
+  }
+  .NotFound > p {
+    font-size: 2vmax;
+  }
+  .NotFound > a {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    border: none;
+    padding: 1vmax 3vmax;
+    cursor: pointer;
+    font: 400 1vmax "Roboto";
+    text-decoration: none;
+    margin: 2vmax;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .NotFound > a {
+      padding: 3vw 6vw;
+      font: 400 4vw "Roboto";
+      margin: 2vmax;
+    }
+  
+    .NotFound > svg {
+      font-size: 20vw;
+    }
+    .NotFound > p {
+      margin: 2vmax;
+      font-size: 5vw;
+    }
+  }
+  

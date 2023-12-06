@@ -4,15 +4,7 @@ import axios from 'axios';
 const url="http://localhost:4500";
 
 
-export const getAllUser=createAsyncThunk("/get/User",async()=>{
-  try {
-    const {data}=await axios.get(`${url}/api/v1/User/Alluser`);
-    return data
-  } catch (error) {
-    throw error.response.data.msg
-  }
 
-})
 
 export const LoginAction=createAsyncThunk("/login/User",async(payload)=>{
   try {
@@ -71,7 +63,7 @@ export const UpadteMe=createAsyncThunk("/User/Update",async({token,payload})=>{
       'Content-Type': 'multipart/form-data',
       'Authorization': `${token}`,
     };
-    console.log("token",token);
+
     const {data}=await axios.patch(`${url}/api/v1/User/update-profile`,payload,{headers});
     return data
   } catch (error) {
@@ -107,8 +99,60 @@ export const resetPasswordReq=createAsyncThunk("/User/reset/pass",async({payload
     
   }
 })
-export const clearError=createAction("clearError");
-export const Logout=createAction("Logout")
+
+export const UpdateUserRole=createAsyncThunk('/admin/update/role',async({id,token,payload})=>{
+  try {
+    const headers = {
+      'Content-Type': 'Application/json',
+      'Authorization': `${token}`,
+    };
+    const {data}=await axios.patch(`${url}/api/v1/User/update-role/${id}`,payload,{headers});
+    return data
+  } catch (error) {
+    throw error.response.data.msg
+    
+  }
+})
+export const DeleteUser=createAsyncThunk('/admin/update/role',async({id,token})=>{
+  try {
+    const headers = {
+      'Content-Type': 'Application/json',
+      'Authorization': `${token}`,
+    };
+    const {data}=await axios.delete(`${url}/api/v1/User/deleteUser/${id}`,{headers});
+    return data
+  } catch (error) {
+    throw error.response.data.msg
+    
+  }
+})
+export const AllExistUser=createAsyncThunk('/admin/All/User',async({id,token})=>{
+  try {
+    const headers = {
+      'Content-Type': 'Application/json',
+      'Authorization': `${token}`,
+    };
+    const {data}=await axios.get(`${url}/api/v1/User/Alluser`,{headers});
+    return data
+  } catch (error) {
+    throw error.response.data.msg
+    
+  }
+})
+
+export const GetSingleUser=createAsyncThunk('/admin/Single/User',async({id,token})=>{
+  try {
+    const headers = {
+      'Content-Type': 'Application/json',
+      'Authorization': `${token}`,
+    };
+    const {data}=await axios.get(`${url}/api/v1/User/SingleUser/${id}`,{headers});
+    return data
+  } catch (error) {
+    throw error.response.data.msg
+    
+  }
+})
 
 const initialState={
   Alluser:[],
@@ -121,7 +165,9 @@ const initialState={
   isUpdated:false,
   isPasswordUpdated:false,
   success:false,
-  msg:""
+  msg:"",
+  SingleUser:{},
+  UserRoleUpdate:false
 }
 
 const UserSlice=createSlice({
@@ -129,23 +175,15 @@ const UserSlice=createSlice({
   initialState,
   reducers:{
     clearError:(state)=>state.error=null,
-    Logout:(state)=>state.loginSucess=false
+    Logout:(state)=>state.loginSucess=false,
+    clearMessage:(state)=>state.msg="",
+    clearSucess:(state)=>{
+      state.success=false
+    }
+   
+
   },
   extraReducers:(builder)=>{
-    builder.addCase(getAllUser.pending,(state)=>{
-      state.loading=true
-    })
-    .addCase(getAllUser.fulfilled,(state,action)=>{
-      console.log("objectoferror",action.payload.data);
-      state.loading=false;
-      state.Alluser=action.payload.data
-      state.error=null
-    })
-    .addCase(getAllUser.rejected,(state,action)=>{
-   
-      state.error=action.error.message
-      state.loading=false;
-    })
     builder.addCase(LoginAction.pending,(state)=>{
       state.loading=true
     })
@@ -242,10 +280,62 @@ const UserSlice=createSlice({
     .addCase(resetPasswordReq.rejected,(state,action)=>{
       state.error=action.error.message;
       state.loading=false;
+    })  
+    builder.addCase(AllExistUser.pending,(state,action)=>{
+      state.loading=true;
+      state.success=false;
+      state.msg=""
     })
-    
+    .addCase(AllExistUser.fulfilled,(state,action)=>{
+      state.loading=false;
+      state.success=true
+      state.Alluser=action.payload.data;
+      state.error=null
+    })
+    .addCase(AllExistUser.rejected,(state,action)=>{
+      state.error=action.error.message;
+      state.loading=false;
+    })  
+    builder.addCase(DeleteUser.pending,(state,action)=>{
+      state.loading=true;
+      state.success=false;
+      state.msg=""
+    })
+    .addCase(DeleteUser.fulfilled,(state,action)=>{
+      state.loading=false;
+      state.success=true
+      state.error=null
+    })
+    .addCase(DeleteUser.rejected,(state,action)=>{
+      state.error=action.error.message;
+      state.loading=false;
+    })  
+    builder.addCase(GetSingleUser.pending,(state,action)=>{
+      state.loading=true;
+      state.success=false;
+      state.UserRoleUpdate=false;
+      state.msg=""
+    })
+    .addCase(GetSingleUser.fulfilled,(state,action)=>{
+      state.loading=false;
+      state.success=true;
+      state.UserRoleUpdate=true;
+      state.SingleUser=action.payload.data;
+      state.error=null
+    })
+    .addCase(GetSingleUser.rejected,(state,action)=>{
+      state.error=action.error.message;
+      state.UserRoleUpdate=false;
+      state.loading=false;
+    })  
   }
 })
+
+
+export const {clearMessage}=UserSlice.actions;
+export const {clearError}=UserSlice.actions;
+
+export const {Logout}=UserSlice.actions;
 
 
 

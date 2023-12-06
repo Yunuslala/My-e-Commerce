@@ -62,7 +62,14 @@ module.exports = {
         new ErrorHandler(401, "you are not authorize for these routes")
       );
     }
-    const FindSingleOrder = await OrderModel.findOne({ _id: req.params.id });
+    const FindSingleOrder = await OrderModel.findOne({ _id: req.params.id }) .populate({
+      path: 'orderItems.CartId',
+      populate: {
+        path: 'items.productId',
+        model: 'Product',
+      },
+    })
+      .populate("UserId", "name email").exec();;
     if (!FindSingleOrder) {
       return next(new ErrorHandler(404, "Orders Does not exist"));
     }
@@ -72,9 +79,8 @@ module.exports = {
     }
 
     if (req.body.status === "Shipped") {
-     
-      FindSingleOrder.orderItems.forEach(async (o) => {
-        const findStock = await ProductModel.findOne({ _id: o.productId });
+      FindSingleOrder.orderItems?.CartId?.items?.forEach(async (o) => {
+        const findStock = await ProductModel.findOne({ _id: o.productId._id });
         const updatedStock = findStock.Stock - o.quantity;
         if (updatedStock < 0) {
           return next(new ErrorHandler(400, "Product is out of stock sorry"));

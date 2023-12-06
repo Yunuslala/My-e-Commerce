@@ -37,7 +37,7 @@ exports.loginUser=AsyncErrorHandler(async(req,res,next)=>{
     console.log("object",finduser);
     let compare=await bcrypt.compare(password,finduser.password);
     if(compare){
-        const token=await jwt.sign({UserId:finduser._id,role:finduser.role},process.env.secret,{expiresIn:'6d'});
+        const token=await jwt.sign({UserId:finduser._id,role:finduser.role},process.env.secret,);
         return res.status(200).send({
             success:true,
             msg:"User has been login sucessfully",
@@ -154,14 +154,15 @@ exports.updateProfile=AsyncErrorHandler(async(req,res,next)=>{
 
 })
 exports.getAllUser=AsyncErrorHandler(async(req,res,next)=>{
-    // let {role}=req.body;
-    // if(role!="admin"){
-    //     return next(new ErrorHandler(401,"you are not authorize for these routes"))
-    // }
+    let {role}=req.body;
+    if(role!="admin"){
+        return next(new ErrorHandler(401,"you are not authorize for these routes"))
+    }
     const data=await UserModel.find();
     return res.status(200).send({
         sucess:true,
         data,
+        msg:"All User dispersed"
     })
 })
 exports.getSingleUser=AsyncErrorHandler(async(req,res,next)=>{

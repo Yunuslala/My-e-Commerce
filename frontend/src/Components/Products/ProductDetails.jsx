@@ -38,7 +38,7 @@ const ProductDetails = () => {
   const {LoginUser}=useSelector((store)=>store.AuthSlice);
 
   useEffect(() => {
-    Dispatch(getProuctDetails(id));
+    Dispatch(getProuctDetails({id}));
     if (error) {
       const ErrorToast = () => {
         toast.error(error, {
@@ -63,7 +63,7 @@ const ProductDetails = () => {
 Dispatch(clearReviewSuccess());
 
     }
-  }, [Dispatch, id, error,ReviewSuccess]);
+  }, [ id, error,ReviewSuccess]);
   const submitReviewToggle = async () => {
     open ? setOpen(false) : setOpen(true);
   };
